@@ -10,6 +10,7 @@ import Foundation
 
 struct K {
     
+    static let cellIdentifierGeneral = "Cell"
     static let cellIdentifierCategory = "CategoryCell"
     static let cellIdentifierTodoList = "ToDoItemCell"
     static let dataModel = "DataModel"
