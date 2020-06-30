@@ -29,6 +29,27 @@ class TodoListViewController: SwipeTableViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if let colourHex = selectedCategory?.bgColour {
+            
+            title = selectedCategory!.name
+            
+            guard let navBar = navigationController?.navigationBar else { fatalError("Navigation Controller does not exist.") }
+            
+            if let navBarColour = UIColor(hexString: colourHex) {
+                navBar.backgroundColor = navBarColour
+                
+                navBar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+                
+                navBar.largeTitleTextAttributes = [NSMutableAttributedString.Key.foregroundColor : ContrastColorOf(navBarColour, returnFlat: true)]
+                
+                searchBar.barTintColor = navBarColour
+            }
+        }
+        
+    }
+    
     // MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +72,7 @@ class TodoListViewController: SwipeTableViewController {
             cell.accessoryType = item.isDone ? .checkmark : .none
             
         } else {
-            cell.textLabel?.text = "No Items Added yet"
+            cell.textLabel?.text = "No Items Added"
         }
         
         return cell

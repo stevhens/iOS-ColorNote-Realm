@@ -25,6 +25,16 @@ class CategoryViewController: SwipeTableViewController {
         loadCategories()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        guard let navBar = navigationController?.navigationBar else { fatalError("Navigation Controller does not exist.") }
+        
+        navBar.backgroundColor = UIColor(hexString: "1D9BF6") //default color 0A84FF / 1D9BF6
+        navBar.tintColor = FlatWhite()
+        navBar.largeTitleTextAttributes = [NSMutableAttributedString.Key.foregroundColor : FlatWhite()]
+        
+    }
+    
     // MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,16 +45,20 @@ class CategoryViewController: SwipeTableViewController {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-//        if let category = categories?[indexPath.row] {
-//            cell.textLabel?.text = category.name
-//            cell.backgroundColor = UIColor(hexString: category.bgColour)
-//        } else {
-//            cell.textLabel?.text = "No Categories Added yet"
-//            cell.backgroundColor = UIColor(hexString: "0A84FF")
-//        }
-        
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added yet"
-        cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].bgColour ?? "0A84FF")
+        
+        if let category = categories?[indexPath.row] {
+            
+            guard let categoryColour = UIColor(hexString: category.bgColour) else { fatalError() }
+            
+            cell.backgroundColor = categoryColour
+            cell.textLabel?.textColor = ContrastColorOf(categoryColour, returnFlat: true)
+            
+        }
+        
+//        cell.textLabel?.textColor = ContrastColorOf(UIColor(hexString: categories?[indexPath.row].bgColour ?? "0A84FF")!, returnFlat: true)
+//        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added yet"
+//        cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].bgColour ?? "0A84FF") //default color
         
         return cell
     }
@@ -52,7 +66,7 @@ class CategoryViewController: SwipeTableViewController {
     // MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         performSegue(withIdentifier: K.segueIdentifier, sender: self)
         
     }
@@ -80,8 +94,7 @@ class CategoryViewController: SwipeTableViewController {
         tableView.reloadData()
     }
     
-    func loadCategories() {
-        
+    func loadCategories() {        
         categories = realm.objects(Category.self)
         
         tableView.reloadData()
