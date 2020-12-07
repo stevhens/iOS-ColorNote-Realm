@@ -18,7 +18,3 @@ Todoey (ColorNote) app is a to-do list app that will store to-do list in colorfu
 * Integrating third-party framework.
 * Realm framework Create, Read, Update and Delete (CRUD).
 * Color literals.
-
-## Demo
-
-![Todoey-Demo](Documentation/iOS-Todoey.gif)
