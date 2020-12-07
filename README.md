@@ -1,6 +1,6 @@
 #  Todoey (ColorNote)
 
-![Todoey-Demo](Documentation/iOS-Todoey.png)
+![Todoey-Logo](Documentation/iOS-Todoey.png)
 
 ## Outline
 
