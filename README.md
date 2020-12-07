@@ -1,5 +1,7 @@
 #  Todoey (ColorNote)
 
+![Todoey-Demo](Documentation/iOS-Todoey.png)
+
 ## Outline
 
 This app makes me learn Data Persistence in Swift, from using UserDefaults to store primitive data type, store objects, using CoreData and use Realm framework to persist local data. This app developed in UIKit.
